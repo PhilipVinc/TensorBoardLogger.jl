@@ -10,8 +10,6 @@ test_log_dir = "test_logs/"
 ENV["DATADEPS_ALWAYS_ACCEPT"] = true
 ENV["GKSwstype"] = "100"
 
-ENV["DATADEPS_ALWAYS_ACCEPT"] = true
-
 @testset "TensorBoardLogger" begin
 
     @testset "TBLogger" begin
@@ -269,6 +267,10 @@ ENV["DATADEPS_ALWAYS_ACCEPT"] = true
         log_graph(logger, g, step = step, nodedevice = ["cpu", "cpu", "gpu", "gpu", "gpu", "gpu", "cpu"], nodevalue = [1, "tf", 3.14, [1.0 2.0; 3.0 4.0], true, +, (10, "julia", 12.4)])
 
         close.(values(logger.all_files))
+    end
+    
+    @testset "HParams Backend" begin
+        include("test_hparams.jl")
     end
 
     @testset "Embedding Logger" begin
